@@ -1,15 +1,10 @@
 import React from 'react';
-import './App.css';
-import Section from './components/Section';
-import FeedbackOptions from './components/FeedbackOptions';
-import Statistics from './components/Statistics';
+import Section from './components/Section/Section';
+import FeedbackOptions from './components/FeedbackOptions/FeedbackOptions';
+import Statistics from './components/Statistics/Statistics';
 import styled from 'styled-components';
-import Notification from './components/Notification';
-
-const StyledApp = styled.div`
-  width: 80vw;
-  margin: 1rem auto;
-`;
+import Notification from './components/NotificationComponent/Notification';
+import { StyledApp } from './components/AppComponent/StyledApp';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,27 +14,28 @@ class App extends React.Component {
       neutral: 0,
       bad: 0,
     };
-
-    this.onFeedbackClick = this.onFeedbackClick.bind(this);
-    this.countTotalFeedback = this.countTotalFeedback.bind(this);
   }
 
-  onFeedbackClick(event) {
+  onFeedbackClick = (event) => {
     const propertyField = event.target.value;
 
     this.setState((state) => ({
       [propertyField]: (state[propertyField] += 1),
     }));
-  }
+  };
 
-  countTotalFeedback() {
+  countTotalFeedback = () => {
     return Object.values(this.state).reduce((ac, item) => (ac += item));
-  }
+  };
 
-  countPositiveFeedbackPercentage(total) {
+  countPositiveFeedbackPercentage = (total) => {
     const res = Math.floor((this.state.good / total) * 100);
     return !Number.isNaN(res) ? res : 0;
-  }
+  };
+
+  formatValue = (value) => {
+    return `${Number(value).toFixed(0)}`;
+  };
 
   render() {
     const total = this.countTotalFeedback();
@@ -56,6 +52,7 @@ class App extends React.Component {
               bad={this.state.bad}
               total={total}
               positivePercentage={positive}
+              formatValue={this.formatValue}
             ></Statistics>
           ) : (
             <Notification message="No feedback given" />
