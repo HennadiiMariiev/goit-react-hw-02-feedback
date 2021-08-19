@@ -16,11 +16,9 @@ class App extends React.Component {
     };
   }
 
-  onFeedbackClick = (event) => {
-    const propertyField = event.target.value;
-
+  onFeedbackClick = (option) => {
     this.setState((state) => ({
-      [propertyField]: (state[propertyField] += 1),
+      [option]: (state[option] += 1),
     }));
   };
 

@@ -5,7 +5,7 @@ const FeedbackOptions = ({ options, onLeaveFeedback }) => {
 
   const buttons = Object.keys(options).map((option, index) => {
     return (
-      <StyledButton key={index} type="button" value={option} onClick={onLeaveFeedback}>
+      <StyledButton key={index} type="button" value={option} onClick={() => onLeaveFeedback(option)}>
         {`${String.fromCodePoint(emoji[option])} `}
         {option}
       </StyledButton>
